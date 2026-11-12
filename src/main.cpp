@@ -74,7 +74,7 @@ void AppInit(App* app)
 		demos[DEMO_03_SCREEN_SPACE] = new Demo3;
 	}
 
-	app->demo_index = DEMO_TYPE_COUNT - 1;
+	app->demo_index = DEMO_01_GRADIENT;
 	app->demos[app->demo_index]->Load(&app->renderer);
 	SetWindowTitle(GetDemoName(app->demo_index));
 }

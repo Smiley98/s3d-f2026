@@ -14,13 +14,18 @@ class Demo1 : public Demo
 public:
 	void Update(S3D_Renderer* renderer) final
 	{
-		for (int y = 0; y < renderer->height; y++)
+		float t = sinf(GetTime()) * 0.5f + 0.5f;
+		//Color color = WHITE;
+		//color.g++; // "Overflow"  -- wraps from highest (255) to lowest (0)
+		//color.g--; // "Underflow" -- wraps from lowest (0) to 255 (highest)
+		// If you pass a value less than 0.0 or greater than 1.0 to ColorFromNormalized, expect problems!
+		for (int x = 0; x < renderer->width; x++)
 		{
-			for (int x = 0; x < renderer->width; x++)
+			for (int y = 0; y < renderer->height; y++)
 			{
 				float u = x / (float)(renderer->width  - 1);
 				float v = y / (float)(renderer->height - 1);
-				Color color = ColorFromNormalized({ u, v, 0.0f, 1.0f });
+				Color color = ColorFromNormalized({ u, v, t, 1.0f });
 				S3D_SetPixelColor(renderer->color_buffer, x, y, color);
 			}
 		}
