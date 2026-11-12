@@ -38,13 +38,22 @@ class Demo2 : public Demo
 public:
 	void Update(S3D_Renderer* renderer) final
 	{
-		for (int y = 0; y < renderer->height; y++)
+		for (int x = 0; x < renderer->width; x++)
 		{
-			for (int x = 0; x < renderer->width; x++)
+			for (int y = 0; y < renderer->height; y++)
 			{
+				float u = x / (float)(renderer->width - 1);
+				float v = y / (float)(renderer->height - 1);
+				Vector3 ndc = S3D_ScreenToNDC(renderer, { x, y }); // [-1..1]
+
+				// Visualize how S3D_ScreenToNDC transforms uvs to screen centre
+				//ndc = Vector3Clamp(ndc, Vector3Zeros, Vector3Ones);
+				//Color color = ColorFromNormalized({ ndc.x, ndc.y, 0.0f, 1.0f });
+
 				// ColorFromNormalized will overflow unless we clamp!
-				float d = fminf(Vector3Length(S3D_ScreenToNDC(renderer, { x, y })), 1.0f);
-				Color color = ColorFromNormalized({ d, d, d, d });
+				float d = Vector3Length(ndc);
+				d = fminf(d, 1.0f);
+				Color color = ColorFromNormalized({ d, d, d, 1.0f });
 				S3D_SetPixelColor(renderer->color_buffer, x, y, color);
 			}
 		}

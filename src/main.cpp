@@ -37,7 +37,7 @@ int main()
 		ImageFlipVertical(&app.renderer.color_buffer);
 
 		BeginDrawing();
-			//ClearBackground(BLACK);
+			ClearBackground(BLACK);
 			UpdateTexture(app.framebuffer, app.renderer.color_buffer.data);
 			DrawTexture(app.framebuffer, 0, 0, WHITE);
 			demo->Draw(&app.renderer);
@@ -74,7 +74,7 @@ void AppInit(App* app)
 		demos[DEMO_03_SCREEN_SPACE] = new Demo3;
 	}
 
-	app->demo_index = DEMO_01_GRADIENT;
+	app->demo_index = DEMO_02_CIRCLE;
 	app->demos[app->demo_index]->Load(&app->renderer);
 	SetWindowTitle(GetDemoName(app->demo_index));
 }
