@@ -39,19 +39,19 @@ void S3D_DrawLine(S3D_Renderer* renderer, int x0, int y0, int x1, int y1, Color 
 	bounds.min.y = y0 < y1 ? y0 : y1;
 	bounds.max.x = bounds.min.x + abs(dx);
 	bounds.max.y = bounds.min.y + abs(dy);
-	if (!S3D_CheckScreenContainsRec(renderer, bounds)) return;
+	assert(S3D_CheckScreenContainsRec(renderer, bounds));
 
 	// let steps = abs dx if abs dx > abs dy, else abs dy
 	// abs = "absolute value"
 
-	// let xStep = dx / steps as float
-	// let yStep = dy / steps as float
+	// let x_step = dx / steps as float
+	// let y_step = dy / steps as float
 
 	// x = x0
 	// y = y0
 	// set pixel at x, y
 	// for i in steps:
-	//		x += xStep
-	//		y += yStep
+	//		x += x_step
+	//		y += y_step
 	//		set pixel at x, y
 }

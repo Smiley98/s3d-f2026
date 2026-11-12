@@ -66,5 +66,17 @@ public:
 	void Update(S3D_Renderer* renderer) final
 	{
 		S3D_ClearColor(renderer, BLACK);
+		S3D_DrawCircle(renderer, renderer->width / 2, renderer->height / 2, 5, MAGENTA);
+
+		// Functions you need to implement and test:
+		//S3D_DrawLineX;
+		//S3D_DrawLineY;
+		//S3D_DrawLine;
+		//S3D_DrawRectangle;
+		//S3D_DrawRectangleLines;
+
+		// Functions that may be useful for your test:
+		//S3D_GetMousePosition;
+		//S3D_ClampToScreen;
 	}
 };

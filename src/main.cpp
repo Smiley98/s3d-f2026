@@ -74,7 +74,7 @@ void AppInit(App* app)
 		demos[DEMO_03_SCREEN_SPACE] = new Demo3;
 	}
 
-	app->demo_index = DEMO_02_CIRCLE;
+	app->demo_index = DEMO_03_SCREEN_SPACE;
 	app->demos[app->demo_index]->Load(&app->renderer);
 	SetWindowTitle(GetDemoName(app->demo_index));
 }
