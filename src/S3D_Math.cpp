@@ -61,6 +61,30 @@ inline Vector3 MatrixPerspectiveDivide(Vector3 v, Matrix mvp)
 	return { vp.x, vp.y, vp.z };
 }
 
+inline Matrix Matrix3x3(Matrix m)
+{
+	// Bottom row will never be modified for any affine transformation.
+	// Much faster to zero the translation column then extract upper-left 3x3.
+	m.m12 = m.m13 = m.m14 = 0.0f;
+	return m;
+}
+
+inline Vector2i Vector2iMin(Vector2i v0, Vector2i v1)
+{
+	Vector2i v{};
+	v.x = v0.x < v1.x ? v0.x : v1.x;
+	v.y = v0.y < v1.y ? v0.y : v1.y;
+	return v;
+}
+
+inline Vector2i Vector2iMax(Vector2i v0, Vector2i v1)
+{
+	Vector2i v{};
+	v.x = v0.x > v1.x ? v0.x : v1.x;
+	v.y = v0.y > v1.y ? v0.y : v1.y;
+	return v;
+}
+
 inline Color ColorRandomRGB()
 {
 	Color color;

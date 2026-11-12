@@ -75,8 +75,8 @@ void S3D_CameraUpdate(S3D_Camera* camera, float speed_linear, float speed_angula
 	if (camera_enabled_curr)
 	{
 		float dt = GetFrameTime();
-		camera->yaw += mouse_delta.x * speed_angular * dt;
-		camera->pitch += mouse_delta.y * speed_angular * dt;
+		camera->yaw -= mouse_delta.x * speed_angular * dt;
+		camera->pitch -= mouse_delta.y * speed_angular * dt;
 		
 		Matrix rotation = S3D_CameraRotationMatrix(*camera);
 		Vector3 local_x = { rotation.m0, rotation.m1, rotation.m2 };

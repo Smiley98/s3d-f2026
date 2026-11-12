@@ -4,6 +4,7 @@ enum DemoType
 {
 	DEMO_01_GRADIENT,
 	DEMO_02_CIRCLE,
+	DEMO_03_SCREEN_SPACE,
 	DEMO_TYPE_COUNT
 };
 
@@ -28,7 +29,7 @@ int main()
 {
 	App app{};
 	AppInit(&app);
-
+	
 	while (!WindowShouldClose())
 	{
 		Demo* demo = app.demos[app.demo_index];
@@ -36,6 +37,7 @@ int main()
 		ImageFlipVertical(&app.renderer.color_buffer);
 
 		BeginDrawing();
+			//ClearBackground(BLACK);
 			UpdateTexture(app.framebuffer, app.renderer.color_buffer.data);
 			DrawTexture(app.framebuffer, 0, 0, WHITE);
 			demo->Draw(&app.renderer);
@@ -60,6 +62,8 @@ void AppInit(App* app)
 		renderer.height = GetScreenHeight();
 
 		renderer.color_buffer = GenImageColor(renderer.width, renderer.height, BLACK);
+		renderer.depth_buffer = GenImageColor(renderer.width, renderer.height, BLANK);
+		
 		app->framebuffer = LoadTextureFromImage(renderer.color_buffer);
 	}
 
@@ -67,9 +71,10 @@ void AppInit(App* app)
 		Demo** demos = app->demos;
 		demos[DEMO_01_GRADIENT] = new Demo1;
 		demos[DEMO_02_CIRCLE] = new Demo2;
+		demos[DEMO_03_SCREEN_SPACE] = new Demo3;
 	}
 
-	app->demo_index = 0;
+	app->demo_index = DEMO_TYPE_COUNT - 1;
 	app->demos[app->demo_index]->Load(&app->renderer);
 	SetWindowTitle(GetDemoName(app->demo_index));
 }
@@ -130,8 +135,9 @@ const char* GetDemoName(int demo_index)
 const char* GetDemoNames()
 {
 	static const char* demo_names =
-		"01: Gradient;"
-		"02: Circle";
+		"01: Screen-Space Gradient;"
+		"02: NDC Circle;"
+		"03: Screen-Space";
 	
 	return demo_names;
 }

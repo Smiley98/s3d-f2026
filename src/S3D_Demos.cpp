@@ -8,25 +8,49 @@ public:
 	virtual void Draw(S3D_Renderer* renderer) {}
 };
 
-// Screen-space gradient, https://www.shadertoy.com/view/4XcfWl
+// Screen-space gradient
 class Demo1 : public Demo
 {
 public:
 	void Update(S3D_Renderer* renderer) final
 	{
-		// Hint: you'll need to write a nested for-loop that runs width * height amount of pixels!
-		Color color = ColorFromNormalized({ 0.0f, 1.0f, 0.5f, 1.0f });
-		S3D_ClearColor(renderer, color);
+		for (int y = 0; y < renderer->height; y++)
+		{
+			for (int x = 0; x < renderer->width; x++)
+			{
+				float u = x / (float)(renderer->width  - 1);
+				float v = y / (float)(renderer->height - 1);
+				Color color = ColorFromNormalized({ u, v, 0.0f, 1.0f });
+				S3D_SetPixelColor(renderer->color_buffer, x, y, color);
+			}
+		}
 	}
 };
 
-// NDC circle, https://www.shadertoy.com/view/fcfXWj
+// NDC circle
 class Demo2 : public Demo
 {
 public:
 	void Update(S3D_Renderer* renderer) final
 	{
-		// Hint: you'll need to write a nested for-loop that runs width * height amount of pixels!
-		S3D_ClearColor(renderer, GREEN);
+		for (int y = 0; y < renderer->height; y++)
+		{
+			for (int x = 0; x < renderer->width; x++)
+			{
+				// ColorFromNormalized will overflow unless we clamp!
+				float d = fminf(Vector3Length(S3D_ScreenToNDC(renderer, { x, y })), 1.0f);
+				Color color = ColorFromNormalized({ d, d, d, d });
+				S3D_SetPixelColor(renderer->color_buffer, x, y, color);
+			}
+		}
+	}
+};
+
+class Demo3 : public Demo
+{
+public:
+	void Update(S3D_Renderer* renderer) final
+	{
+		S3D_ClearColor(renderer, BLACK);
 	}
 };

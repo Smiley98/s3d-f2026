@@ -6,6 +6,7 @@
 #include <external/par_shapes.h>
 #include <external/fast_obj.h>
 
+#include <array>
 #include <vector>
 #include <cassert>
 
@@ -26,7 +27,7 @@ struct S3D_Renderer
 	int width;
 	int height;
 	Image color_buffer;
-	//Image depth_buffer;
+	Image depth_buffer;
 };
 
 struct S3D_Mesh
@@ -57,6 +58,36 @@ struct S3D_Camera
 	};
 	double near, far;
 };
+
+struct S3D_UniformData
+{
+	Matrix world;
+	Matrix normal;
+	Matrix mvp;
+
+	Image image;
+};
+
+struct S3D_Vertex
+{
+	Vector3 position;
+	Vector3 normal;
+	Vector2 tcoord;
+
+	Vector3 ndc;
+	Vector2i screen;
+};
+
+struct S3D_Fragment
+{
+	Vector3 p;  // Position (world)        
+	Vector3 n;  // Normal   (world)
+	Vector2 t;  // Tcoord   (local)
+	Vector3 bc; // Barycentric
+	float depth;
+};
+
+using S3D_FragmentShader = Vector3(*)(S3D_Fragment fragment, const S3D_UniformData& uniform);
 
 #include "S3D_Math.cpp"
 #include "S3D_Mesh.cpp"
