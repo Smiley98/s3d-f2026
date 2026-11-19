@@ -69,9 +69,9 @@ public:
 		S3D_DrawCircle(renderer, renderer->width / 2, renderer->height / 2, 5, MAGENTA);
 
 		// Functions you need to implement and test:
-		//S3D_DrawLineX;
-		//S3D_DrawLineY;
-		//S3D_DrawLine;
+		S3D_DrawLineX(renderer, 100, 0, renderer->width - 1, RED);
+		S3D_DrawLineY(renderer, 100, 0, renderer->height - 1, GREEN);
+		S3D_DrawLine(renderer, 100, 100, 500, 500, ORANGE);
 		//S3D_DrawRectangle;
 		//S3D_DrawRectangleLines;
 

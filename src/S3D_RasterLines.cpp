@@ -10,8 +10,10 @@ void S3D_DrawLineX(S3D_Renderer* renderer, int row, int x0, int x1, Color color)
 	bounds.max.y = row;
 	assert(S3D_CheckScreenContainsRec(renderer, bounds));
 
-	// for x in x0 to x1:
-	//		set pixel at x, row
+	for (int x = x0; x <= x1; x++)
+	{
+		S3D_SetPixelColor(renderer->color_buffer, x, row, color);
+	}
 }
 
 void S3D_DrawLineY(S3D_Renderer* renderer, int col, int y0, int y1, Color color)
@@ -25,8 +27,10 @@ void S3D_DrawLineY(S3D_Renderer* renderer, int col, int y0, int y1, Color color)
 	bounds.max.x = col;
 	assert(S3D_CheckScreenContainsRec(renderer, bounds));
 
-	// for y in y0 to y1:
-	//		set pixel at col, y
+	for (int y = y0; y <= y1; y++)
+	{
+		S3D_SetPixelColor(renderer->color_buffer, col, y, color);
+	}
 }
 
 void S3D_DrawLine(S3D_Renderer* renderer, int x0, int y0, int x1, int y1, Color color0, Color color1 = BLANK)
@@ -41,17 +45,18 @@ void S3D_DrawLine(S3D_Renderer* renderer, int x0, int y0, int x1, int y1, Color 
 	bounds.max.y = bounds.min.y + abs(dy);
 	assert(S3D_CheckScreenContainsRec(renderer, bounds));
 
-	// let steps = abs dx if abs dx > abs dy, else abs dy
-	// abs = "absolute value"
+	int steps = abs(dx) > abs(dy) ? abs(dx) : abs(dy);
+	float x_step = dx / (float)steps;
+	float y_step = dy / (float)steps;
 
-	// let x_step = dx / steps as float
-	// let y_step = dy / steps as float
-
-	// x = x0
-	// y = y0
+	float x = (float)x0;
+	float y = (float)y0;
 	// set pixel at x, y
-	// for i in steps:
-	//		x += x_step
-	//		y += y_step
-	//		set pixel at x, y
+	S3D_SetPixelColor(renderer->color_buffer, x, y, color0);
+	for (int i = 0; i < steps; i++)
+	{
+		x += x_step;
+		y += y_step;
+		S3D_SetPixelColor(renderer->color_buffer, x, y, color0);
+	}
 }
