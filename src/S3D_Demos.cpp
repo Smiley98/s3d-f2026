@@ -71,7 +71,7 @@ public:
 		// Functions you need to implement and test:
 		S3D_DrawLineX(renderer, 100, 0, renderer->width - 1, RED);
 		S3D_DrawLineY(renderer, 100, 0, renderer->height - 1, GREEN);
-		S3D_DrawLine(renderer, 100, 100, 500, 500, ORANGE);
+		S3D_DrawLine(renderer, 100, 100, 600, 600, BLUE, PURPLE);
 		//S3D_DrawRectangle;
 		//S3D_DrawRectangleLines;
 

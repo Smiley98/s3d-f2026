@@ -45,6 +45,11 @@ void S3D_DrawLine(S3D_Renderer* renderer, int x0, int y0, int x1, int y1, Color 
 	bounds.max.y = bounds.min.y + abs(dy);
 	assert(S3D_CheckScreenContainsRec(renderer, bounds));
 
+	if (ColorIsEqual(color1, BLANK))
+	{
+		color1 = color0;
+	}
+
 	int steps = abs(dx) > abs(dy) ? abs(dx) : abs(dy);
 	float x_step = dx / (float)steps;
 	float y_step = dy / (float)steps;
@@ -57,6 +62,7 @@ void S3D_DrawLine(S3D_Renderer* renderer, int x0, int y0, int x1, int y1, Color 
 	{
 		x += x_step;
 		y += y_step;
-		S3D_SetPixelColor(renderer->color_buffer, x, y, color0);
+		Color color = ColorLerp(color0, color1, i / (float)steps);
+		S3D_SetPixelColor(renderer->color_buffer, x, y, color);
 	}
 }
