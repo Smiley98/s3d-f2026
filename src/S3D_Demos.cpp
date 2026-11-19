@@ -66,7 +66,6 @@ public:
 	void Update(S3D_Renderer* renderer) final
 	{
 		S3D_ClearColor(renderer, BLACK);
-		S3D_DrawCircle(renderer, renderer->width / 2, renderer->height / 2, 5, MAGENTA);
 
 		S3D_Rectangle rec{};
 		rec.min.x = renderer->width * 0.4f;
@@ -77,12 +76,16 @@ public:
 		// Functions you need to implement and test:
 		S3D_DrawLineX(renderer, 100, 0, renderer->width - 1, RED);
 		S3D_DrawLineY(renderer, 100, 0, renderer->height - 1, GREEN);
-		S3D_DrawLine(renderer, 100, 100, 600, 600, BLUE, PURPLE);
 		S3D_DrawRectangle(renderer, rec, BLUE);
 		S3D_DrawRectangleLines(renderer, rec, MAGENTA);
 
-		// Functions that may be useful for your test:
-		//S3D_GetMousePosition;
-		//S3D_ClampToScreen;
+		Vector2i mouse = S3D_GetMousePosition(renderer);
+		S3D_DrawLine(renderer, renderer->width / 2, renderer->height / 2, mouse.x, mouse.y, MAROON, PURPLE);
+
+		int radius = 5;
+		if (S3D_CheckScreenContainsCircle(renderer, mouse.x, mouse.y, radius))
+		{
+			S3D_DrawCircle(renderer, mouse.x, mouse.y, 5, VIOLET);
+		}
 	}
 };
