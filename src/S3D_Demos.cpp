@@ -99,6 +99,8 @@ public:
 	std::vector<Vector3> plane_vertices;
 	std::vector<uint16_t> plane_indices;
 
+	S3D_Mesh sphere;
+
 	void Load(S3D_Renderer* renderer) final
 	{
 		triangle_vertices.resize(3);
@@ -119,6 +121,9 @@ public:
 		plane_indices[3] = 0;
 		plane_indices[4] = 2;
 		plane_indices[5] = 3;
+
+		S3D_LoadMeshSphere(&sphere);
+		TraceLog(LOG_INFO, "RENDER THIS SPHERE!!!");
 	}
 
 	void Update(S3D_Renderer* renderer) final
@@ -138,5 +143,8 @@ public:
 
 			S3D_DrawTriangleWireframes(renderer, ndc0, ndc1, ndc2, RED);
 		}
+
+		// Render the sphere by sampling its index buffer by Thursday the 19th at midnight!
+		// Remove junk files from your project, and upload as a .zip (just download your project from GitHub)!
 	}
 };
