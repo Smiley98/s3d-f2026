@@ -60,6 +60,7 @@ public:
 	}
 };
 
+// Lab 3 (pre-Thursday the 19th at 8am)
 class Demo3 : public Demo
 {
 public:
@@ -87,5 +88,17 @@ public:
 		{
 			S3D_DrawCircle(renderer, mouse.x, mouse.y, 5, VIOLET);
 		}
+	}
+};
+
+// Alternate lab 3 (After Thursday the 19th at 8am)
+class Demo4 : public Demo
+{
+public:
+	void Update(S3D_Renderer* renderer) final
+	{
+		S3D_ClearColor(renderer, MAGENTA);
+
+		
 	}
 };

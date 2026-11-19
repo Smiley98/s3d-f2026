@@ -5,6 +5,7 @@ enum DemoType
 	DEMO_01_GRADIENT,
 	DEMO_02_CIRCLE,
 	DEMO_03_SCREEN_SPACE,
+	DEMO_04_WIREFRAMES,
 	DEMO_TYPE_COUNT
 };
 
@@ -72,9 +73,10 @@ void AppInit(App* app)
 		demos[DEMO_01_GRADIENT] = new Demo1;
 		demos[DEMO_02_CIRCLE] = new Demo2;
 		demos[DEMO_03_SCREEN_SPACE] = new Demo3;
+		demos[DEMO_04_WIREFRAMES] = new Demo4;
 	}
 
-	app->demo_index = DEMO_03_SCREEN_SPACE;
+	app->demo_index = DEMO_04_WIREFRAMES;
 	app->demos[app->demo_index]->Load(&app->renderer);
 	SetWindowTitle(GetDemoName(app->demo_index));
 }
@@ -137,7 +139,8 @@ const char* GetDemoNames()
 	static const char* demo_names =
 		"01: Screen-Space Gradient;"
 		"02: NDC Circle;"
-		"03: Screen-Space";
+		"03: Screen-Space;"
+		"04: Wireframes";
 	
 	return demo_names;
 }
