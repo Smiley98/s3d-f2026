@@ -2,23 +2,22 @@
 void S3D_DrawRectangle(S3D_Renderer* renderer, S3D_Rectangle rec, Color color)
 {
 	assert(S3D_CheckScreenContainsRec(renderer, rec));
-	// Option 1:
-	// for ry in y to y + h:
-	//		for rx in x to x + h:
-	//			set pixel at rx, ry
-
-	// Option 2:
-	// Render vertical lines for all columns
-
-	// Option 3:
-	// Render horizontal lines for all rows
+	for (int x = rec.min.x; x <= rec.max.x; x++)
+	{
+		for (int y = rec.min.y; y <= rec.max.y; y++)
+		{
+			S3D_SetPixelColor(renderer->color_buffer, x, y, color);
+		}
+	}
 }
 
 void S3D_DrawRectangleLines(S3D_Renderer* renderer, S3D_Rectangle rec, Color color)
 {
 	assert(S3D_CheckScreenContainsRec(renderer, rec));
-	// Render vertical lines at x and x + w
-	// Render horizontal lines at y and y + h
+	S3D_DrawLineX(renderer, rec.min.y, rec.min.x, rec.max.x, color);
+	S3D_DrawLineX(renderer, rec.max.y, rec.min.x, rec.max.x, color);
+	S3D_DrawLineY(renderer, rec.min.x, rec.min.y, rec.max.y, color);
+	S3D_DrawLineY(renderer, rec.max.x, rec.min.y, rec.max.y, color);
 }
 
 void S3D_DrawCircle(S3D_Renderer* renderer, int cx, int cy, int cr, Color color)

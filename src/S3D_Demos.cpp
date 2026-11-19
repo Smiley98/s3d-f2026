@@ -68,12 +68,18 @@ public:
 		S3D_ClearColor(renderer, BLACK);
 		S3D_DrawCircle(renderer, renderer->width / 2, renderer->height / 2, 5, MAGENTA);
 
+		S3D_Rectangle rec{};
+		rec.min.x = renderer->width * 0.4f;
+		rec.min.y = renderer->height * 0.4f;
+		rec.max.x = renderer->width * 0.6f;
+		rec.max.y = renderer->height * 0.6f;
+
 		// Functions you need to implement and test:
 		S3D_DrawLineX(renderer, 100, 0, renderer->width - 1, RED);
 		S3D_DrawLineY(renderer, 100, 0, renderer->height - 1, GREEN);
 		S3D_DrawLine(renderer, 100, 100, 600, 600, BLUE, PURPLE);
-		//S3D_DrawRectangle;
-		//S3D_DrawRectangleLines;
+		S3D_DrawRectangle(renderer, rec, BLUE);
+		S3D_DrawRectangleLines(renderer, rec, MAGENTA);
 
 		// Functions that may be useful for your test:
 		//S3D_GetMousePosition;
